@@ -1,0 +1,40 @@
+---
+- name: Update BIND DNS records
+  hosts: localhost
+  gather_facts: false
+  vars:
+    # Variables passed from AAP Survey
+    hostname: "{{ hostname }}"
+    ip_addr: "{{ ip_addr }}"
+    domain: "aus.redhat.com" # Replace with your domain
+    dns_server: "172.31.100.1" # Replace with your Primary DNS IP
+    key_name: "aapkey" # The name of your TSIG key in named.conf
+    key_secret: "DYFsjVnUQz85m8lNbWHPy1Q25H9N/dew5ux09nhbQhY=" # Ideally stored in Ansible Vault/Credentials
+    key_algorithm: "hmac-sha256"
+
+  tasks:
+    - name: Create A Record
+      community.general.nsupdate:
+        key_name: "{{ key_name }}"
+        key_secret: "{{ key_secret }}"
+        key_algorithm: "{{ key_algorithm }}"
+        server: "{{ dns_server }}"
+        zone: "{{ domain }}"
+        record: "{{ hostname }}"
+        value: "{{ ip_addr }}"
+        type: A
+        state: present
+
+    - name: Create PTR Record
+      community.general.nsupdate:
+        key_name: "{{ key_name }}"
+        key_secret: "{{ key_secret }}"
+        key_algorithm: "{{ key_algorithm }}"
+        server: "{{ dns_server }}"
+        # Logic to reverse IP for in-addr.arpa zone could go here, 
+        # but for a demo, hardcoding the zone or using a filter is easier.
+        zone: "100.31.172.in-addr.arpa" 
+        record: "{{ ip_addr.split('.')[-1] }}"
+        value: "{{ hostname }}.{{ domain }}."
+        type: PTR
+        state: present
