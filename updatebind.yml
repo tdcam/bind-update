@@ -9,7 +9,7 @@
     domain: "aus.redhat.com" # Replace with your domain
     dns_server: "172.31.100.1" # Replace with your Primary DNS IP
     key_name: "aapkey" # The name of your TSIG key in named.conf
-    key_secret: "DYFsjVnUQz85m8lNbWHPy1Q25H9N/dew5ux09nhbQhY=" # Ideally stored in Ansible Vault/Credentials
+    key_secret: "DYFsjVnUQz85m8lNbWHPy1Q25H9N/dew5ux09nhbQhY=" # Ideally stored in Ansible Vault/Credentials, this is a bogus key for example sake only.
     key_algorithm: "hmac-sha256"
 
   tasks:
