@@ -20,7 +20,7 @@
         key_algorithm: "{{ key_algorithm }}"
         server: "{{ dns_server }}"
         zone: "{{ domain }}"
-        record: "{{ hostname }}"
+        record: "{{ lifecycle }}-{{ class }}-{{ srvnumber }}"
         value: "{{ ip_addr }}"
         type: A
         state: present
@@ -35,6 +35,6 @@
         # but for a demo, hardcoding the zone or using a filter is easier.
         zone: "100.31.172.in-addr.arpa" 
         record: "{{ ip_addr.split('.')[-1] }}"
-        value: "{{ hostname }}.{{ domain }}."
+        value: "{{ lifecycle }}-{{ class }}-{{ srvnumber }}"."{{ domain }}."
         type: PTR
         state: present
