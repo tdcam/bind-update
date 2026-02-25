@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     # Variables passed from AAP Survey
-    hostname: "{{ hostname }}"
+    hostname: "{{ lifecycle }}-{{ class }}-{{ srvnumber }}"
     ip_addr: "{{ ip_addr }}"
     domain: "aus.redhat.com" # Replace with your domain
     dns_server: "172.31.100.1" # Replace with your Primary DNS IP
