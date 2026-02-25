@@ -4,7 +4,6 @@
   gather_facts: false
   vars:
     # Variables passed from AAP Survey
-    hostname: "{{ lifecycle }}-{{ class }}-{{ srvnumber }}"
     ip_addr: "{{ ip_addr }}"
     domain: "aus.redhat.com" # Replace with your domain
     dns_server: "172.31.100.1" # Replace with your Primary DNS IP
@@ -35,6 +34,6 @@
         # but for a demo, hardcoding the zone or using a filter is easier.
         zone: "100.31.172.in-addr.arpa" 
         record: "{{ ip_addr.split('.')[-1] }}"
-        value: "{{ lifecycle }}-{{ class }}-{{ srvnumber }}"."{{ domain }}."
+        value: "{{ lifecycle }}-{{ class }}-{{ srvnumber }}.{{ domain }}."
         type: PTR
         state: present
